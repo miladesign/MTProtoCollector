@@ -32,7 +32,7 @@ function generateMessage($finalOutput)
 
         // Add each button to the keyboard
         $keyboard[] = [
-            'text' => "$flag $number",
+            'text' => "$flag ($number)",
             'url' => $link,
         ];
     }
