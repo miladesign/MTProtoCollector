@@ -10,7 +10,19 @@ foreach ($sources as $source) {
 
 file_put_contents("proxy/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT));
 
-sendMessageToTelegram("TEST MESSAGE");
+$message = generateMessage($final_output);
+sendMessageToTelegram($message);
+
+function generateMessage($finalOutput)
+{
+    $message = '';
+    foreach ($finalOutput as $proxyData) {
+        $flag = $proxyData['flag'];
+        $link = $proxyData['link'];
+        $message .= "[$link]($flag) ";
+    }
+    return $message;
+}
 
 function sendMessageToTelegram($message)
 {
@@ -26,6 +38,7 @@ function sendMessageToTelegram($message)
     $params = [
         'chat_id' => $chatId,
         'text' => $message,
+        "parse_mode" => "markdown"
     ];
 
     $ch = curl_init();
