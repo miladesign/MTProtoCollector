@@ -15,16 +15,24 @@ sendMessageToTelegram($message);
 
 function generateMessage($finalOutput)
 {
-    $message = '';
+    $keyboard = [];
     foreach ($finalOutput as $proxyData) {
         $flag = $proxyData['flag'];
         $link = $proxyData['link'];
-        $message .= "[$link]($flag) ";
+
+        // Add each button to the keyboard
+        $keyboard[] = [
+            'text' => $flag,
+            'url' => $link,
+        ];
     }
-    return $message;
+
+    $inlineKeyboard = json_encode(['inline_keyboard' => array_chunk($keyboard, 5)]);
+
+    return $inlineKeyboard;
 }
 
-function sendMessageToTelegram($message)
+function sendMessageToTelegram($inlineKeyboard)
 {
     $botToken = getenv('TELEGRAM_BOT_TOKEN');
     $chatId = getenv('TELEGRAM_CHAT_ID');
@@ -37,7 +45,8 @@ function sendMessageToTelegram($message)
     $url = "https://api.telegram.org/bot$botToken/sendMessage";
     $params = [
         'chat_id' => $chatId,
-        'text' => $message,
+        'text' => 'Click on a flag:',
+        'reply_markup' => $inlineKeyboard,
         "parse_mode" => "markdown"
     ];
 
