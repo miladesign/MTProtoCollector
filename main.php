@@ -18,6 +18,11 @@ function generateMessage($finalOutput)
     $keyboard = [];
     $numberMap = [];
 
+    // Sort the finalOutput array by flag
+    usort($finalOutput, function ($a, $b) {
+        return strcmp($a['flag'], $b['flag']);
+    });
+
     foreach ($finalOutput as $proxyData) {
         $flag = $proxyData['flag'];
         $link = $proxyData['link'];
