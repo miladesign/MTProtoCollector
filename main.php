@@ -13,36 +13,6 @@ file_put_contents("proxy/mtproto.json", json_encode($final_output, JSON_PRETTY_P
 $message = generateMessage($final_output);
 sendMessageToTelegram($message);
 
-function numberToEmoji($number)
-{
-    $map = [
-        "0" => "0️⃣",
-        "1" => "1️⃣",
-        "2" => "2️⃣",
-        "3" => "3️⃣",
-        "4" => "4️⃣",
-        "5" => "5️⃣",
-        "6" => "6️⃣",
-        "7" => "7️⃣",
-        "8" => "8️⃣",
-        "9" => "9️⃣",
-    ];
-
-    $emoji = "";
-    $digits = str_split($number);
-
-    foreach ($digits as $digit) {
-        if (count($digits) === 1) {
-            $emoji = $map["0"];
-        }
-        if (isset($map[$digit])) {
-            $emoji .= $map[$digit];
-        }
-    }
-
-    return $emoji;
-}
-
 function generateMessage($finalOutput)
 {
     $keyboard = [];
@@ -57,7 +27,7 @@ function generateMessage($finalOutput)
 
         // Add each button to the keyboard
         $keyboard[] = [
-            'text' => "$flag " . numberToEmoji($number),
+            'text' => "$flag $number",
             'url' => $link,
         ];
     }
