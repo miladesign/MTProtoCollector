@@ -92,7 +92,7 @@ function sendMessageToTelegram($inlineKeyboard)
         'chat_id' => $chatId,
         'text' => $text,
         'reply_markup' => $inlineKeyboard,
-        "parse_mode" => "markdown"
+        "parse_mode" => "html"
     ];
 
     $ch = curl_init();
