@@ -4,19 +4,6 @@
         "host": "t.me",
         "path": "\/proxy",
         "query": {
-            "server": "159.69.219.124",
-            "port": "443",
-            "secret": "3QAAAAAAAAAAAAAAAAAAAAA=",
-            "name": "@GlypeX"
-        },
-        "flag": "\ud83c\udde9\ud83c\uddea",
-        "link": "https:\/\/t.me\/proxy?server=159.69.219.124&port=443&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@GlypeX"
-    },
-    {
-        "scheme": "https",
-        "host": "t.me",
-        "path": "\/proxy",
-        "query": {
             "server": "95.216.119.33",
             "port": "9443",
             "secret": "7kQWAEQWAEQARBYEQWAARBZkZG4ueWVrdGFuZXQuY29tYDAQIAAQABAAAAAAAAAAAAAAAAAAAAAA",
@@ -43,26 +30,26 @@
         "host": "t.me",
         "path": "\/proxy",
         "query": {
-            "server": "116.203.84.229",
+            "server": "116.203.31.78",
             "port": "8085",
             "secret": "3QAAAAAAAAAAAAAAAAAAAAA=",
             "name": "@ProxyMTProto"
         },
         "flag": "\ud83c\udde9\ud83c\uddea",
-        "link": "https:\/\/t.me\/proxy?server=116.203.84.229&port=8085&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@ProxyMTProto"
+        "link": "https:\/\/t.me\/proxy?server=116.203.31.78&port=8085&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@ProxyMTProto"
     },
     {
         "scheme": "https",
         "host": "t.me",
         "path": "\/proxy",
         "query": {
-            "server": "168.119.124.108",
+            "server": "116.203.31.49",
             "port": "8085",
             "secret": "3QAAAAAAAAAAAAAAAAAAAAA=",
             "name": "@ProxyMTProto"
         },
         "flag": "\ud83c\udde9\ud83c\uddea",
-        "link": "https:\/\/t.me\/proxy?server=168.119.124.108&port=8085&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@ProxyMTProto"
+        "link": "https:\/\/t.me\/proxy?server=116.203.31.49&port=8085&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@ProxyMTProto"
     },
     {
         "scheme": "https",
@@ -76,19 +63,6 @@
         },
         "flag": "\ud83c\udde9\ud83c\uddea",
         "link": "https:\/\/t.me\/proxy?server=Cloudflare.com.nokia.com.co.uk.do_yo.want_to.clash_with.this.www.microsoft.com.there_is_no.place_like.localhost.www.bing.com.count_with_me.cyou.net.now_sudo.rm.again_to_fight.everyone.i_am.the_internet.ir-irancell-ir.sbs&port=443&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@Myporoxy"
-    },
-    {
-        "scheme": "https",
-        "host": "t.me",
-        "path": "\/proxy",
-        "query": {
-            "server": "cloudFlare.com.nokia.com.co.uk.do_yo.want_to.clash_with.this.www.microsoft.com.there_is_no.place_like.localhost.www.bing.com.count_with_me.cyou.net.now_sudo.rm.again_to_fight.everyone.i_am.the_internet.irancell-ir.sbs",
-            "port": "443",
-            "secret": "3QAAAAAAAAAAAAAAAAAAAAA=",
-            "name": "@Myporoxy"
-        },
-        "flag": "\ud83c\udde9\ud83c\uddea",
-        "link": "https:\/\/t.me\/proxy?server=cloudFlare.com.nokia.com.co.uk.do_yo.want_to.clash_with.this.www.microsoft.com.there_is_no.place_like.localhost.www.bing.com.count_with_me.cyou.net.now_sudo.rm.again_to_fight.everyone.i_am.the_internet.irancell-ir.sbs&port=443&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@Myporoxy"
     },
     {
         "scheme": "https",
@@ -115,6 +89,32 @@
         },
         "flag": "\ud83c\udde9\ud83c\uddea",
         "link": "https:\/\/t.me\/proxy?server=162.55.192.84&port=443&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@iMTProto"
+    },
+    {
+        "scheme": "https",
+        "host": "t.me",
+        "path": "\/proxy",
+        "query": {
+            "server": "157.90.156.134",
+            "port": "8085",
+            "secret": "3QAAAAAAAAAAAAAAAAAAAAA=",
+            "name": "@TelMTProto"
+        },
+        "flag": "\ud83c\udde9\ud83c\uddea",
+        "link": "https:\/\/t.me\/proxy?server=157.90.156.134&port=8085&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@TelMTProto"
+    },
+    {
+        "scheme": "https",
+        "host": "t.me",
+        "path": "\/proxy",
+        "query": {
+            "server": "157.90.112.38",
+            "port": "8085",
+            "secret": "3QAAAAAAAAAAAAAAAAAAAAA=",
+            "name": "@TelMTProto"
+        },
+        "flag": "\ud83c\udde9\ud83c\uddea",
+        "link": "https:\/\/t.me\/proxy?server=157.90.112.38&port=8085&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@TelMTProto"
     },
     {
         "scheme": "https",
