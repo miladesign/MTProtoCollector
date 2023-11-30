@@ -62,14 +62,14 @@ function getCaption() {
     $quote = getRandomQuote();
 
     $result = $quote["text"];
-    $result .= "<br><br>";
+    $result .= "\n\n";
     if (!empty($quote["reference"])) {
         $result .= "📚 " . $quote["reference"];
-        $result .= "<br><br>";
+        $result .= "\n\n";
     }
     if (!empty($quote["author"])) {
         $result .= "👤 #" . $quote["author"];
-        $result .= "<br><br>";
+        $result .= "\n\n";
     }
     $result .= "🔔 @Free_Tg_Proxy";
 
