@@ -11,6 +11,15 @@ foreach ($sources as $source) {
 
 //file_put_contents("proxy/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT));
 
+function replaceWithSubscripts($input) {
+    $numbers = str_split('0123456789');
+    $subscripts = str_split('₀₁₂₃₄₅₆₇₈₉');
+
+    $output = str_replace($numbers, $subscripts, $input);
+
+    return $output;
+}
+
 $message = generateMessage($final_output);
 sendMessageToTelegram($message);
 
@@ -33,12 +42,12 @@ function generateMessage($finalOutput)
 
         // Add each button to the keyboard
         $keyboard[] = [
-            'text' => "$flag ($number)",
+            'text' => "$flag " . replaceWithSubscripts($number),
             'url' => $link,
         ];
     }
 
-    $inlineKeyboard = json_encode(['inline_keyboard' => array_chunk($keyboard, 5)]);
+    $inlineKeyboard = json_encode(['inline_keyboard' => array_chunk($keyboard, 6)]);
 
     return $inlineKeyboard;
 }
