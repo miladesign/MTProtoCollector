@@ -17,19 +17,6 @@
         "host": "t.me",
         "path": "\/proxy",
         "query": {
-            "server": "lamari-randa-store.tick-setnew.toortiket-serketface-option.shop",
-            "port": "443",
-            "secret": "3fQ1mpsyX_HR5QhN8OD3U3s",
-            "name": "@ProxyMTProto"
-        },
-        "flag": "\ud83c\udde9\ud83c\uddea",
-        "link": "https:\/\/t.me\/proxy?server=lamari-randa-store.tick-setnew.toortiket-serketface-option.shop&port=443&secret=3fQ1mpsyX_HR5QhN8OD3U3s&@ProxyMTProto"
-    },
-    {
-        "scheme": "https",
-        "host": "t.me",
-        "path": "\/proxy",
-        "query": {
             "server": "ClouDflare.com.okia.com.co.uk.do_yo.want_to.clash_with.this.www.microsoft.com.there_is_no.place_like.localhost.www.bing.com.count_with_me.cyou.net.now_sudo.rm.again_to_fight.everyone.i_am.the_internet.ir-irancell-ir.sbs",
             "port": "443",
             "secret": "3QAAAAAAAAAAAAAAAAAAAAA=",
@@ -37,6 +24,19 @@
         },
         "flag": "\ud83c\udde9\ud83c\uddea",
         "link": "https:\/\/t.me\/proxy?server=ClouDflare.com.okia.com.co.uk.do_yo.want_to.clash_with.this.www.microsoft.com.there_is_no.place_like.localhost.www.bing.com.count_with_me.cyou.net.now_sudo.rm.again_to_fight.everyone.i_am.the_internet.ir-irancell-ir.sbs&port=443&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@Myporoxy"
+    },
+    {
+        "scheme": "https",
+        "host": "t.me",
+        "path": "\/proxy",
+        "query": {
+            "server": "cloudflare.com.Nokia.com.co.uk.do_yo.want_to.clash_with.this.www.microsoft.com.there_is_no.place_like.localhost.www.bing.com.count_with_me.cyou.net.now_sudo.rm.again_to_fight.everyone.i_am.the_internet.irancell-ir.sbs",
+            "port": "443",
+            "secret": "3QAAAAAAAAAAAAAAAAAAAAA=",
+            "name": "@Myporoxy"
+        },
+        "flag": "\ud83c\udde9\ud83c\uddea",
+        "link": "https:\/\/t.me\/proxy?server=cloudflare.com.Nokia.com.co.uk.do_yo.want_to.clash_with.this.www.microsoft.com.there_is_no.place_like.localhost.www.bing.com.count_with_me.cyou.net.now_sudo.rm.again_to_fight.everyone.i_am.the_internet.irancell-ir.sbs&port=443&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@Myporoxy"
     },
     {
         "scheme": "https",
@@ -76,6 +76,19 @@
         },
         "flag": "\ud83c\udde9\ud83c\uddea",
         "link": "https:\/\/t.me\/proxy?server=116.203.196.172&port=8085&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@TelMTProto"
+    },
+    {
+        "scheme": "https",
+        "host": "t.me",
+        "path": "\/proxy",
+        "query": {
+            "server": "116.203.41.111",
+            "port": "8085",
+            "secret": "3QAAAAAAAAAAAAAAAAAAAAA=",
+            "name": "@TelMTProto"
+        },
+        "flag": "\ud83c\udde9\ud83c\uddea",
+        "link": "https:\/\/t.me\/proxy?server=116.203.41.111&port=8085&secret=3QAAAAAAAAAAAAAAAAAAAAA=&@TelMTProto"
     },
     {
         "scheme": "https",
@@ -394,6 +407,32 @@
         "host": "t.me",
         "path": "\/proxy",
         "query": {
+            "server": "142.93.133.154",
+            "port": "443",
+            "secret": "ee73c040d9d07df97f5e5bf5a1509f87cc7777772e6769746875622e636f6d",
+            "name": "@alephproxy"
+        },
+        "flag": "\ud83c\uddf3\ud83c\uddf1",
+        "link": "https:\/\/t.me\/proxy?server=142.93.133.154&port=443&secret=ee73c040d9d07df97f5e5bf5a1509f87cc7777772e6769746875622e636f6d&@alephproxy"
+    },
+    {
+        "scheme": "https",
+        "host": "t.me",
+        "path": "\/proxy",
+        "query": {
+            "server": "89.208.103.168",
+            "port": "44",
+            "secret": "eec6b5a1da0dfffdc93b29091a9e5f5d287777772e636c6f7564666c6172652e636f6d",
+            "name": "@YekoyekVpn"
+        },
+        "flag": "\ud83c\udde9\ud83c\uddea",
+        "link": "https:\/\/t.me\/proxy?server=89.208.103.168&port=44&secret=eec6b5a1da0dfffdc93b29091a9e5f5d287777772e636c6f7564666c6172652e636f6d&@YekoyekVpn"
+    },
+    {
+        "scheme": "https",
+        "host": "t.me",
+        "path": "\/proxy",
+        "query": {
             "server": "81.171.6.101",
             "port": "4343",
             "secret": "7hYDAQIAAQAB_AMDhuJMOt1kbi55ZWt0YW5ldC5jb21kbC5nb29nbGUuY29tZmFyYWthdi5jb20WAwECAAEAAQAAAAAAAAAAAAAAAAAAAAA",
@@ -401,5 +440,18 @@
         },
         "flag": "\ud83c\uddf3\ud83c\uddf1",
         "link": "https:\/\/t.me\/proxy?server=81.171.6.101&port=4343&secret=7hYDAQIAAQAB_AMDhuJMOt1kbi55ZWt0YW5ldC5jb21kbC5nb29nbGUuY29tZmFyYWthdi5jb20WAwECAAEAAQAAAAAAAAAAAAAAAAAAAAA&@ProxyForOpeta"
+    },
+    {
+        "scheme": "https",
+        "host": "t.me",
+        "path": "\/proxy",
+        "query": {
+            "server": "lamari-randa-store.tick-setnew.toortiket-serketface-option.shop",
+            "port": "443",
+            "secret": "3fQ1mpsyX_HR5QhN8OD3U3s",
+            "name": "@ProxyForOpeta"
+        },
+        "flag": "\ud83c\udde9\ud83c\uddea",
+        "link": "https:\/\/t.me\/proxy?server=lamari-randa-store.tick-setnew.toortiket-serketface-option.shop&port=443&secret=3fQ1mpsyX_HR5QhN8OD3U3s&@ProxyForOpeta"
     }
 ]
