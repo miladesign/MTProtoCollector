@@ -47,7 +47,7 @@ function generateMessage($finalOutput)
         ];
     }
 
-    $inlineKeyboard = json_encode(['inline_keyboard' => array_chunk($keyboard, 6)]);
+    $inlineKeyboard = json_encode(['inline_keyboard' => array_chunk($keyboard, 5)]);
 
     return $inlineKeyboard;
 }
