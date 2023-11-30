@@ -71,7 +71,7 @@ function getCaption() {
         $result .= "👤 #" . $quote["author"];
         $result .= "\n\n";
     }
-    $result .= "🔔 @Free_Tg_Proxy";
+    $result .= "🔔 @ProxyCollector";
 
     return $result;
 }
