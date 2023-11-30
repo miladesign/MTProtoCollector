@@ -1,6 +1,7 @@
 <?php
 include "modules/get_proxy.php";
 include "modules/config.php";
+include "modules/caption.php";
 
 $final_data = [];
 foreach ($sources as $source) {
@@ -9,35 +10,6 @@ foreach ($sources as $source) {
 }
 
 file_put_contents("proxy/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT));
-
-function getQuote() {
-    // Get HTML content from the URL
-    $url = "https://time.ir";
-    $html = file_get_contents($url);
-
-    // Define the regular expression patterns for quoteText and quoteAuthor
-    $quoteTextPattern = '/<span[^>]*class="h4 quoteText"[^>]*>(.*?)<\/span>/s';
-    $quoteAuthorPattern = '/<a[^>]*class="h5 quoteAuthor"[^>]*>(.*?)<\/a>/s';
-
-    // Perform the regular expression matches
-    preg_match($quoteTextPattern, $html, $quoteTextMatches);
-    preg_match($quoteAuthorPattern, $html, $quoteAuthorMatches);
-
-    // Extract the quoteText and quoteAuthor from the matches
-    $quoteText = isset($quoteTextMatches[1]) ? $quoteTextMatches[1] : '';
-    $quoteAuthor = isset($quoteAuthorMatches[1]) ? $quoteAuthorMatches[1] : '';
-
-    // Check if the text length is more than 200 characters or empty and run the function again
-    if (mb_strlen($quoteText) > 200 || empty($quoteText)) {
-        return getQuote();
-    }
-
-    // Trim the author's name and replace spaces with underscores
-    $underscoredAuthor = str_replace(' ', '_', trim($quoteAuthor));
-
-    // Return the results in an array
-    return array("text" => $quoteText, "author" => '#' . $underscoredAuthor);
-}
 
 $message = generateMessage($final_output);
 sendMessageToTelegram($message);
@@ -81,16 +53,10 @@ function sendMessageToTelegram($inlineKeyboard)
         return;
     }
 
-    $quote = getQuote();
-
-    $text = $quote['text'] . "\n" . $quote['author'] . "\n";
-    $text .= "@Free_Tg_Proxy \n";
-    $text .= "برای اتصال کشور مورد نظر را انتخاب کنید:";
-
     $url = "https://api.telegram.org/bot$botToken/sendMessage";
     $params = [
         'chat_id' => $chatId,
-        'text' => $text,
+        'text' => getCaption(),
         'reply_markup' => $inlineKeyboard,
         "parse_mode" => "html"
     ];
