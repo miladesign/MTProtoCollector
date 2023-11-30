@@ -42,7 +42,7 @@ function generateMessage($finalOutput)
 
         // Add each button to the keyboard
         $keyboard[] = [
-            'text' => "$flag " . replaceWithSubscripts($number),
+            'text' => "$flag $number",// . replaceWithSubscripts($number),
             'url' => $link,
         ];
     }
