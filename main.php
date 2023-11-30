@@ -9,7 +9,7 @@ foreach ($sources as $source) {
     $final_output = remove_duplicate($final_data);
 }
 
-//file_put_contents("proxy/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT));
+file_put_contents("proxy/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT));
 
 $message = generateMessage($final_output);
 sendMessageToTelegram($message);
