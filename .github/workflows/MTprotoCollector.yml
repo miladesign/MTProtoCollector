@@ -3,7 +3,7 @@ name: "MTproto Collector"
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */3 * * *'
+    - cron: '0 */4 * * *'
     
 jobs:
   build:
@@ -20,12 +20,6 @@ jobs:
       - name: Execute PHP script
         run: |
           php main.php
-          git config --global user.email "rezagah.milad@gmail.com"
-          git config --global user.name "miladesign"
-          git config credential.helper store
-          git add -A
-          git commit -m "🚀 Proxies Updated - $(TZ='Asia/Tehran' date '+%Y-%m-%d %H:%M:%S')"
-          git push
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
