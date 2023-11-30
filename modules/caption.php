@@ -64,7 +64,7 @@ function getCaption() {
     $result = $quote["text"];
     $result .= "<br><br>";
     if (!empty($quote["reference"])) {
-        $result .= $quote["reference"];
+        $result .= "📚 " . $quote["reference"];
         $result .= "<br><br>";
     }
     if (!empty($quote["author"])) {
