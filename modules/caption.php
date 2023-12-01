@@ -1,6 +1,45 @@
 <?php
+include "config.php";
 
-function getRandomQuote() {
+function getCurrentDay() {
+    $dayNumber = date('N');
+
+    switch ($dayNumber) {
+        case 1:
+            return "دوشنبتون";
+        case 2:
+            return "سه شنبتون";
+        case 3:
+            return "چهارشنبتون";
+        case 4:
+            return "پنجشنبتون";
+        case 5:
+            return "جمعتون";
+        case 6:
+            return "شنبتون";
+        default:
+            return "یکشنبتون";
+    }
+}
+
+function generateGreeting() {
+    global $morning, $morningText, $nightText;
+    // Create greeting message
+    date_default_timezone_set('Asia/Tehran');
+    $currentHour = date('H');
+
+    $greeting = "";
+    if ($currentHour >= 7 && $currentHour < 11) {
+        $randomMorningText = str_replace('{0}', getCurrentDay(), $morning[array_rand($morning)]);
+        $greeting = str_replace('{0}', $randomMorningText, $morningText[array_rand($morningText)]);
+    } elseif (($currentHour >= 20) || ($currentHour === 0)) {
+        $greeting = $nightText[array_rand($nightText)];
+    }
+
+    return $greeting;
+}
+
+function generateCaption() {
     $url = "https://api.time.ir/v1/brainyquote/fa/quotes/randomquote";
     $headers = array(
         'X-Api-Key: ZAVdqwuySASubByCed5KYuYMzb9uB2f7'
@@ -26,7 +65,7 @@ function getRandomQuote() {
         // Check if quote text is more than 250 characters
         if (strlen($quoteText) > 250) {
             // If yes, recursively get another quote
-            return getRandomQuote();
+            return generateCaption();
         }
 
         $reference = $decoded_response['data']['reference'];
@@ -47,9 +86,10 @@ function getRandomQuote() {
 
         // Create a new associative array with extracted information
         $result = array(
-            'text' => $quoteText,
+            'quote' => $quoteText,
             'reference' => $reference,
-            'author' => $authorName
+            'author' => $authorName,
+            'greeting' => generateGreeting()
         );
 
         return $result;
@@ -59,20 +99,23 @@ function getRandomQuote() {
 }
 
 function getCaption() {
-    $quote = getRandomQuote();
+    $caption = generateCaption();
 
-    $result = $quote["text"];
+    $result = $caption["quote"];
     $result .= "\n\n";
-    if (!empty($quote["reference"])) {
-        $result .= "📚 " . $quote["reference"];
+    if (!empty($caption["reference"])) {
+        $result .= "📚 " . $caption["reference"];
         $result .= "\n\n";
     }
-    if (!empty($quote["author"])) {
-        $result .= "👤 #" . $quote["author"];
+    if (!empty($caption["author"])) {
+        $result .= "👤 #" . $caption["author"];
+        $result .= "\n\n";
+    }
+    if (!empty($caption["greeting"])) {
+        $result .= $caption["greeting"];
         $result .= "\n\n";
     }
     $result .= "🔔 @ProxyCollector";
 
     return $result;
 }
-?>
