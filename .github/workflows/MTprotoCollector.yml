@@ -3,7 +3,7 @@ name: "MTproto Collector"
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */4 * * *'
+    - cron: '0 7,12,16,20,23 * * *'
     
 jobs:
   build:
