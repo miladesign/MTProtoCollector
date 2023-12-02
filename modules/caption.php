@@ -30,8 +30,17 @@ function generateGreeting() {
 
     $greeting = "";
     if ($currentHour >= 6 && $currentHour < 10) {
+        $formatter = new IntlDateFormatter(
+            "fa_IR@calendar=persian",
+            IntlDateFormatter::FULL,
+            IntlDateFormatter::FULL,
+            'Asia/Tehran',
+            IntlDateFormatter::TRADITIONAL,
+            'EEEE d MMMM y');
+        $now = new DateTime();
         $randomMorningText = str_replace('{0}', getCurrentDay(), $morning[array_rand($morning)]);
         $greeting = str_replace('{0}', $randomMorningText, $morningText[array_rand($morningText)]);
+        $greeting .= "\n\n📅 " . $formatter->format($now);
     } elseif (($currentHour >= 22) || ($currentHour === 0)) {
         $greeting = $nightText[array_rand($nightText)];
     }
@@ -61,6 +70,8 @@ function generateCaption() {
 
         // Extract quote text, reference, and author information
         $quoteText = $decoded_response['data']['text'];
+        $quoteText = str_replace('</div><div>', '\n', $quoteText);
+        $quoteText = str_replace('<div>', '', $quoteText);
 
         // Check if quote text is more than 250 characters
         if (strlen($quoteText) > 250) {
