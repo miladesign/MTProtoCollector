@@ -29,10 +29,10 @@ function generateGreeting() {
     $currentHour = date('H');
 
     $greeting = "";
-    if ($currentHour >= 6 && $currentHour < 11) {
+    if ($currentHour >= 6 && $currentHour < 10) {
         $randomMorningText = str_replace('{0}', getCurrentDay(), $morning[array_rand($morning)]);
         $greeting = str_replace('{0}', $randomMorningText, $morningText[array_rand($morningText)]);
-    } elseif (($currentHour >= 21) || ($currentHour === 0)) {
+    } elseif (($currentHour >= 22) || ($currentHour === 0)) {
         $greeting = $nightText[array_rand($nightText)];
     }
 
