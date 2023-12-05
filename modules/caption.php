@@ -72,6 +72,9 @@ function generateCaption() {
         $quoteText = $decoded_response['data']['text'];
         $quoteText = str_replace('</div><div>', '\n', $quoteText);
         $quoteText = str_replace('<div>', '', $quoteText);
+        $quoteText = str_replace('<br>', '\n', $quoteText);
+        $quoteText = str_replace('</br>', '\n', $quoteText);
+        $quoteText = str_replace('<br\>', '\n', $quoteText);
 
         // Check if quote text is more than 250 characters
         if (strlen($quoteText) > 250) {
