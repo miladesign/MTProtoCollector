@@ -3,25 +3,23 @@ include "modules/get_proxy.php";
 include "modules/config.php";
 include "modules/caption.php";
 
-$final_data = [];
-foreach ($sources as $source) {
-    $final_data = array_merge($final_data, proxy_array_maker($source));
-    $final_output = remove_duplicate($final_data);
+date_default_timezone_set('Asia/Tehran');
+$currentHour = date('H');
+
+if (($currentHour > 0) && ($currentHour < 7)) {
+    
+} else {
+    $final_data = [];
+    foreach ($sources as $source) {
+        $final_data = array_merge($final_data, proxy_array_maker($source));
+        $final_output = remove_duplicate($final_data);
+    }
+
+    //file_put_contents("proxy/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT));
+
+    $message = generateMessage($final_output);
+    sendMessageToTelegram($message);
 }
-
-//file_put_contents("proxy/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT));
-
-function replaceWithSubscripts($input) {
-    $numbers = str_split('0123456789');
-    $subscripts = str_split('₀₁₂₃₄₅₆₇₈₉');
-
-    $output = str_replace($numbers, $subscripts, $input);
-
-    return $output;
-}
-
-$message = generateMessage($final_output);
-sendMessageToTelegram($message);
 
 function generateMessage($finalOutput)
 {
@@ -42,7 +40,7 @@ function generateMessage($finalOutput)
 
         // Add each button to the keyboard
         $keyboard[] = [
-            'text' => "$flag $number",// . replaceWithSubscripts($number),
+            'text' => "$flag $number",
             'url' => $link,
         ];
     }
