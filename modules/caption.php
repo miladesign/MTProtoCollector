@@ -70,14 +70,21 @@ function generateCaption() {
 
         // Extract quote text, reference, and author information
         $quoteText = $decoded_response['data']['text'];
+        $quoteText = str_replace('&nbsp;', '', $quoteText);
         $quoteText = str_replace('</div><div>', '\n', $quoteText);
+        $quoteText = preg_replace('/<\/div><span[^>]*>/', '\n', $quoteText);
+        $quoteText = str_replace('</div>', '', $quoteText);
         $quoteText = str_replace('<div>', '', $quoteText);
+        $quoteText = str_replace('<span>', '', $quoteText);
+        $quoteText = str_replace('</span>', '', $quoteText);
         $quoteText = str_replace('<br>', '\n', $quoteText);
         $quoteText = str_replace('</br>', '\n', $quoteText);
         $quoteText = str_replace('<br\>', '\n', $quoteText);
+        $quoteText = str_replace(' target=\"_blank\"', '', $quoteText);
+        $quoteText = str_replace(' target="_blank"', '', $quoteText);
 
-        // Check if quote text is more than 250 characters
-        if (strlen($quoteText) > 250) {
+        // Check if quote text is more than 350 characters
+        if (strlen($quoteText) > 350) {
             // If yes, recursively get another quote
             return generateCaption();
         }
