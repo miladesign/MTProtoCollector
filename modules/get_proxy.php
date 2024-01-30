@@ -27,26 +27,27 @@ function parse_proxy($proxy, $name)
     $parts = parse_url($proxy);
     $query_string = str_replace("amp;", "", $parts["query"]);
     parse_str($query_string, $query_params);
-    if (
-        !filtered_or_not("https://" . $query_params["server"])
-    ) {
-        foreach ($query_params as $key => $value) {
-            if (stripos($key, "@") !== false) {
-                unset($query_params[$key]);
-                break; 
+    $server = $query_params["server"];
+    if ($server != "") {
+        if (!filtered_or_not("https://" . $server)) {
+            foreach ($query_params as $key => $value) {
+                if (stripos($key, "@") !== false) {
+                    unset($query_params[$key]);
+                    break; 
+                }
             }
+            $ip_data = ip_info($server);
+            if ($ip_data->country != "XX") {
+                $location = $ip_data->country;
+                $flag = getFlags($location);
+            } else {
+                $flag = "🚩";
+            }
+            $query_params["name"] = "@" . $name . "|" . $flag;
+            $proxy_array = $parts;
+            unset($proxy_array["query"]);
+            $proxy_array["query"] = $query_params;
         }
-        $ip_data = ip_info($query_params["server"]);
-        if ($ip_data->country != "XX") {
-            $location = $ip_data->country;
-            $flag = getFlags($location);
-        } else {
-            $flag = "🚩";
-        }
-        $query_params["name"] = "@" . $name . "|" . $flag;
-        $proxy_array = $parts;
-        unset($proxy_array["query"]);
-        $proxy_array["query"] = $query_params;
     }
     return $proxy_array;
 }

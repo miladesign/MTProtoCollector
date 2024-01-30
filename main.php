@@ -17,11 +17,17 @@ if (($currentHour > 0) && ($currentHour < 7)) {
 
     //file_put_contents("proxy/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT));
 
-    $message = generateMessage($final_output);
-    sendMessageToTelegram($message);
+    $keyboard = generateKeyboard($final_output);
+    $message = "🔔 @ProxyCollector";
+    if (($currentHour > 10) && ($currentHour < 14)) {
+        $message = getPrices();
+    } else {
+        $message = getCaption();
+    }
+    sendMessageToTelegram($message, $keyboard);
 }
 
-function generateMessage($finalOutput)
+function generateKeyboard($finalOutput)
 {
     $keyboard = [];
     $numberMap = [];
@@ -50,7 +56,7 @@ function generateMessage($finalOutput)
     return $inlineKeyboard;
 }
 
-function sendMessageToTelegram($inlineKeyboard)
+function sendMessageToTelegram($message, $inlineKeyboard)
 {
     $botToken = getenv('TELEGRAM_BOT_TOKEN');
     $chatId = getenv('TELEGRAM_CHAT_ID');
@@ -63,9 +69,9 @@ function sendMessageToTelegram($inlineKeyboard)
     $url = "https://api.telegram.org/bot$botToken/sendMessage";
     $params = [
         'chat_id' => $chatId,
-        'text' => getCaption(),
+        'text' => $message,
         'reply_markup' => $inlineKeyboard,
-        "parse_mode" => "html"
+        "parse_mode" => "MarkdownV2"
     ];
 
     $ch = curl_init();

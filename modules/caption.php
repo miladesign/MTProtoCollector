@@ -24,7 +24,6 @@ function getCurrentDay() {
 
 function generateGreeting() {
     global $morning, $morningText, $nightText;
-    // Create greeting message
     date_default_timezone_set('Asia/Tehran');
     $currentHour = date('H');
 
@@ -65,27 +64,31 @@ function generateCaption() {
         $error_message = 'Error: ' . curl_error($ch);
         return json_encode(['error' => $error_message]);
     } else {
-        // Decode JSON response
         $decoded_response = json_decode($response, true);
 
-        // Extract quote text, reference, and author information
         $quoteText = $decoded_response['data']['text'];
-        $quoteText = str_replace('&nbsp;', '', $quoteText);
-        $quoteText = str_replace('</div><div>', '\n', $quoteText);
-        $quoteText = preg_replace('/<\/div><span[^>]*>/', '\n', $quoteText);
-        $quoteText = str_replace('</div>', '', $quoteText);
-        $quoteText = str_replace('<div>', '', $quoteText);
-        $quoteText = str_replace('<span>', '', $quoteText);
-        $quoteText = str_replace('</span>', '', $quoteText);
-        $quoteText = str_replace('<br>', '\n', $quoteText);
-        $quoteText = str_replace('</br>', '\n', $quoteText);
-        $quoteText = str_replace('<br\>', '\n', $quoteText);
-        $quoteText = str_replace(' target=\"_blank\"', '', $quoteText);
-        $quoteText = str_replace(' target="_blank"', '', $quoteText);
-
-        // Check if quote text is more than 350 characters
+        $replacements = [
+            '&nbsp;' => '',
+            '</div><div>' => '\n',
+            '</div><span[^>]*>' => '\n',
+            '</div>' => '',
+            '<div>' => '',
+            '<span>' => '',
+            '</span>' => '',
+            '<b>' => '*',
+            '</b>' => '*',
+            '<i>' => '_',
+            '</i>' => '_',
+            '<br>' => '\n',
+            '</br>' => '\n',
+            '<br\>' => '\n',
+            ' target="_blank"' => '',
+            ' target=\"_blank\"' => '',
+        ];
+        
+        $quoteText = str_replace(array_keys($replacements), array_values($replacements), $quoteText);
+        $quoteText = strip_tags($quoteText);
         if (strlen($quoteText) > 350) {
-            // If yes, recursively get another quote
             return generateCaption();
         }
 
@@ -93,19 +96,16 @@ function generateCaption() {
         $authorFirstName = $decoded_response['data']['author']['firstname'];
         $authorLastName = $decoded_response['data']['author']['lastname'];
 
-        // Determine author name based on conditions
         if (empty($authorFirstName) && !empty($authorLastName)) {
             $authorName = $authorLastName;
         } elseif (!empty($authorFirstName) && empty($authorLastName)) {
             $authorName = $authorFirstName;
         } else {
-            $authorName = $authorFirstName . '_' . $authorLastName;
+            $authorName = $authorFirstName . '\\_' . $authorLastName;
         }
 
-        // Replace spaces with underscores
-        $authorName = str_replace(' ', '_', $authorName);
+        $authorName = str_replace(' ', '\\_', $authorName);
 
-        // Create a new associative array with extracted information
         $result = array(
             'quote' => $quoteText,
             'reference' => $reference,
@@ -124,12 +124,12 @@ function getCaption() {
 
     $result = $caption["quote"];
     $result .= "\n\n";
-    if (!empty($caption["reference"])) {
+    /*if (!empty($caption["reference"])) {
         $result .= "📚 " . $caption["reference"];
         $result .= "\n\n";
-    }
+    }*/
     if (!empty($caption["author"])) {
-        $result .= "👤 #" . $caption["author"];
+        $result .= "👤 \\#" . $caption["author"];
         $result .= "\n\n";
     }
     if (!empty($caption["greeting"])) {
@@ -139,4 +139,64 @@ function getCaption() {
     $result .= "🔔 @ProxyCollector";
 
     return $result;
+}
+
+function getPrices() {
+    $url = 'https://irarz.com/Aj.php';
+    $data = array('signal' => 'getdata');
+    
+    $ch = curl_init($url);
+    
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    
+    $response = curl_exec($ch);
+    
+    if (curl_errno($ch)) {
+        $error_message = 'Error: ' . curl_error($ch);
+        return "";
+    } else {
+        $dataArray = json_decode($response, true);
+    
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            $error_message = 'Error: ' . curl_error($ch);
+            return "";
+        } else {
+            $message = "💰 \\#نرخ\\_ارز\n\n";
+    
+            $currencyKeys = [
+                'dollar_tavafogh' => '🏦دلار تا سقف دو هزار یورو با کارت ملی',
+                'usdmax' => '🇺🇸دلار آزاد',
+                'price_eur' => '🇪🇺یورو',
+                'price_gbp' => '🇬🇧پوند انگلیس',
+                'price_aed' => '🇦🇪درهم امارات',
+                'price_try' => '🇹🇷لیر ترکیه',
+                'price_gel' => '🇬🇪لاری گرجستان',
+                'price_iqd' => '🇮🇶دینار عراق',
+                'price_kwd' => '🇰🇼دینار کویت',
+                'price_cad' => '🇨🇦دلار کانادا',
+                'price_aud' => '🇦🇺دلار استرالیا',
+                'price_sgd' => '🇸🇬دلار سنگاپور',
+                'price_rub' => '🇷🇺روبل روسیه',
+                'price_cny' => '🇨🇳یوان چین',
+                'price_sar' => '🇸🇦ریال عربستان',
+                'price_omr' => '🇴🇲ریال عمان',
+            ];
+    
+            foreach ($currencyKeys as $key => $persianName) {
+                foreach ($dataArray as $item) {
+                    if (isset($item[$key])) {
+                        $message .= "$persianName: *_" . $item[$key] . "_* ریال\n";
+                        break;
+                    }
+                }
+            }
+            $message .= "\n🔔 @ProxyCollector";
+
+            return $message;
+        }
+    }
+    
+    curl_close($ch);
 }
