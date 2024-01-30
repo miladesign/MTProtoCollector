@@ -43,7 +43,7 @@ function generateGreeting() {
     } elseif (($currentHour >= 22) || ($currentHour === 0)) {
         $greeting = $nightText[array_rand($nightText)];
     }
-
+    $greeting = str_replace('.', '\\.', $greeting);
     return $greeting;
 }
 
@@ -75,6 +75,7 @@ function generateCaption() {
             '<div>' => '',
             '<span>' => '',
             '</span>' => '',
+            '.' => '\\.',
             '<b>' => '*',
             '</b>' => '*',
             '<i>' => '_',
@@ -187,6 +188,7 @@ function getPrices() {
             foreach ($currencyKeys as $key => $persianName) {
                 foreach ($dataArray as $item) {
                     if (isset($item[$key])) {
+                        $price = str_replace('.', '\\.', $item[$key]);
                         $message .= "$persianName: *_" . $item[$key] . "_* ریال\n";
                         break;
                     }
