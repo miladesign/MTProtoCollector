@@ -92,5 +92,12 @@ function sendMessageToTelegram($message, $inlineKeyboard)
     }
 
     curl_close($ch);
+
+    $dir = "api";
+    if (!is_dir($dir)) {
+        mkdir($dir);
+    }
+    
+    file_put_contents("api/normal", $final_output);
 }
 ?>
