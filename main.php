@@ -25,6 +25,13 @@ if (($currentHour > 0) && ($currentHour < 7)) {
         $message = getCaption();
     }
     sendMessageToTelegram($message, $keyboard);
+
+    $dir = "api";
+    if (!is_dir($dir)) {
+        mkdir($dir);
+    }
+    
+    file_put_contents("api/normal", $final_output);
 }
 
 function generateKeyboard($finalOutput)
@@ -92,12 +99,5 @@ function sendMessageToTelegram($message, $inlineKeyboard)
     }
 
     curl_close($ch);
-
-    $dir = "api";
-    if (!is_dir($dir)) {
-        mkdir($dir);
-    }
-    
-    file_put_contents("api/normal", $final_output);
 }
 ?>
