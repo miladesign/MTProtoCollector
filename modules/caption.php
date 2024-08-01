@@ -144,13 +144,9 @@ function getCaption() {
 }
 
 function getPrices() {
-    $url = 'https://irarz.com/Aj.php';
-    $data = array('signal' => 'getdata');
+    $url = 'https://call3.tgju.org/ajax.json';
     
     $ch = curl_init($url);
-    
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     
     $response = curl_exec($ch);
@@ -160,7 +156,6 @@ function getPrices() {
         return "";
     } else {
         $dataArray = json_decode($response, true);
-    
         if (json_last_error() !== JSON_ERROR_NONE) {
             $error_message = 'Error: ' . curl_error($ch);
             return "";
@@ -168,30 +163,27 @@ function getPrices() {
             $message = "💰 \\#نرخ\\_ارز\n\n";
     
             $currencyKeys = [
-                'dollar_tavafogh' => '🏦دلار تا سقف دو هزار یورو با کارت ملی',
-                'usdmax' => '🇺🇸دلار آزاد',
+                'ice_usd' => '🏦دلار صرافی ملی',
+                'price_dollar_rl' => '🇺🇸دلار',
+                'ice_eur' => '🏦یورو صرافی ملی',
                 'price_eur' => '🇪🇺یورو',
                 'price_gbp' => '🇬🇧پوند انگلیس',
+                'price_iqd' => '🇮🇶دینار عراق',
+                'price_omr' => '🇴🇲ریال عمان',
+                'price_kwd' => '🇰🇼دینار کویت',
+                'price_sar' => '🇸🇦ریال عربستان',
                 'price_aed' => '🇦🇪درهم امارات',
                 'price_try' => '🇹🇷لیر ترکیه',
-                'price_gel' => '🇬🇪لاری گرجستان',
-                'price_iqd' => '🇮🇶دینار عراق',
-                'price_kwd' => '🇰🇼دینار کویت',
+                'price_afn' => '🇦🇫افغانی',
                 'price_cad' => '🇨🇦دلار کانادا',
                 'price_aud' => '🇦🇺دلار استرالیا',
-                'price_sgd' => '🇸🇬دلار سنگاپور',
-                'afghan_usd' => '🇦🇫دلار افغانستان',
-                'price_rub' => '🇷🇺روبل روسیه',
-                'price_cny' => '🇨🇳یوان چین',
-                'price_sar' => '🇸🇦ریال عربستان',
-                'price_omr' => '🇴🇲ریال عمان',
             ];
     
             foreach ($currencyKeys as $key => $persianName) {
-                foreach ($dataArray as $item) {
-                    if (isset($item[$key])) {
-                        $price = str_replace('.', '\\.', $item[$key]);
-                        $message .= "$persianName: *_" . $item[$key] . "_* ریال\n";
+                foreach ($dataArray['current'] as $subkey => $item) {
+                    if ($subkey === $key) {
+                        $price = str_replace(',', '\\,', $item['p']);
+                        $message .= "$persianName: *_" . $price . "_* ریال\n";
                         break;
                     }
                 }
