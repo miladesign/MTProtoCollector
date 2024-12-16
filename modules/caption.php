@@ -44,6 +44,7 @@ function generateGreeting() {
         $greeting = $nightText[array_rand($nightText)];
     }
     $greeting = str_replace('.', '\\.', $greeting);
+    $greeting = str_replace('!', '\\!', $greeting);
     return $greeting;
 }
 
