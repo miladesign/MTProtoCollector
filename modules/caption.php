@@ -167,7 +167,7 @@ function getPrices() {
     
     if (curl_errno($ch)) {
         $error_message = 'Error: ' . curl_error($ch);
-        return "";
+        return "🔔 @ProxyCollector";
     } else {
         $dataArray = json_decode($response, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
