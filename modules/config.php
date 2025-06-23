@@ -1,5 +1,6 @@
 <?php
 $sources = [
+    "mrsoulb",
     "GlypeX",
     "Lion_MTProto",
     "ProxyMTProto",
