@@ -126,7 +126,7 @@ function getCaption() {
     $caption = generateCaption();
 
     if (empty($caption)) {
-        return '';
+        return '🔔 @ProxyCollector';
     }
 
     $result = '';
