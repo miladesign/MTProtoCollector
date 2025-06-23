@@ -125,20 +125,33 @@ function generateCaption() {
 function getCaption() {
     $caption = generateCaption();
 
-    $result = $caption["quote"];
-    $result .= "\n\n";
+    if (empty($caption)) {
+        return '';
+    }
+
+    $result = '';
+
+    if (!empty($caption['quote'])) {
+        $result .= $caption['quote'] . "\n\n";
+    }
+    
     /*if (!empty($caption["reference"])) {
         $result .= "📚 " . $caption["reference"];
         $result .= "\n\n";
     }*/
-    if (!empty($caption["author"])) {
-        $result .= "👤 \\#" . $caption["author"];
-        $result .= "\n\n";
+
+    if (!empty($caption['author'])) {
+        $result .= "👤 \\#" . $caption['author'] . "\n\n";
     }
-    if (!empty($caption["greeting"])) {
-        $result .= $caption["greeting"];
-        $result .= "\n\n";
+
+    if (!empty($caption['greeting'])) {
+        $result .= $caption['greeting'] . "\n\n";
     }
+
+    if ($result === '') {
+        return '';
+    }
+
     $result .= "🔔 @ProxyCollector";
 
     return $result;
