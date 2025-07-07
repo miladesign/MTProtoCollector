@@ -29,7 +29,7 @@ function parse_proxy($proxy, $name)
     parse_str($query_string, $query_params);
     $server = $query_params["server"];
     if ($server != "") {
-        if (!filtered_or_not("https://" . $server)) {
+        //if (!filtered_or_not("https://" . $server)) {
             foreach ($query_params as $key => $value) {
                 if (stripos($key, "@") !== false) {
                     unset($query_params[$key]);
@@ -47,7 +47,7 @@ function parse_proxy($proxy, $name)
             $proxy_array = $parts;
             unset($proxy_array["query"]);
             $proxy_array["query"] = $query_params;
-        }
+        //}
     }
     return $proxy_array;
 }
@@ -111,6 +111,33 @@ function remove_duplicate($input)
             $output[$counter]["query"]["name"];
         $counter++;
     }
+    return $output;
+}
+
+function proxy_array_from_file()
+{
+    $url = "https://raw.githubusercontent.com/V2RAYCONFIGSPOOL/TELEGRAM_PROXY_SUB/refs/heads/main/telegram_proxy.txt";
+    $proxies_text = file_get_contents($url);
+
+    if ($proxies_text === false) {
+        return [];
+    }
+
+    $lines = explode("\n", trim($proxies_text));
+    $output = [];
+
+    foreach ($lines as $key => $proxy_url) {
+        $proxy_url = trim($proxy_url);
+        if ($proxy_url === '') continue;
+
+        // Use "external" as a generic name or anything you prefer
+        $data = parse_proxy($proxy_url, "external");
+
+        if (!empty($data)) {
+            $output[] = $data;
+        }
+    }
+
     return $output;
 }
 
