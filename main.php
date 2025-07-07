@@ -9,11 +9,13 @@ $currentHour = date('H');
 if (($currentHour > 0) && ($currentHour < 7)) {
     
 } else {
-    $final_data = [];
+    /*$final_data = [];
     foreach ($sources as $source) {
         $final_data = array_merge($final_data, proxy_array_maker($source));
         $final_output = remove_duplicate($final_data);
-    }
+    }*/
+    $proxy_data = proxy_array_from_file();
+    $final_output = remove_duplicate($proxy_data);
 
     //file_put_contents("proxy/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT));
 
