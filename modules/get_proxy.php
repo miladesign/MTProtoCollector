@@ -141,4 +141,15 @@ function proxy_array_from_file()
     return $output;
 }
 
+function build_mtproto_url($proxy_array)
+{
+    if (empty($proxy_array)) return '';
+
+    $scheme = $proxy_array['scheme'] ?? 'https';
+    $host   = $proxy_array['host'] ?? '';
+    $path   = $proxy_array['path'] ?? '';
+    $query  = isset($proxy_array['query']) ? http_build_query($proxy_array['query']) : '';
+
+    return "{$scheme}://{$host}{$path}?" . $query;
+}
 ?>
