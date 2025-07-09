@@ -17,7 +17,7 @@ if (($currentHour > 0) && ($currentHour < 7)) {
     $proxy_data = proxy_array_from_file();
     $final_output = remove_duplicate($proxy_data);
 
-    //file_put_contents("proxy/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT));
+    file_put_contents("api/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
     $keyboard = generateKeyboard($final_output);
     $message = "🔔 @ProxyCollector";
@@ -33,7 +33,9 @@ if (($currentHour > 0) && ($currentHour < 7)) {
         mkdir($dir);
     }
     
-    file_put_contents("api/normal", $final_output);
+    $mtproto_urls = array_map('build_mtproto_url', $final_output);
+    $output_content = implode("\n", $mtproto_urls);
+    file_put_contents("api/normal", $output_content);
 }
 
 function generateKeyboard($finalOutput)
