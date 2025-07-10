@@ -33,7 +33,13 @@ if (($currentHour > 0) && ($currentHour < 7)) {
         mkdir($dir);
     }
     
-    $mtproto_urls = array_map('build_mtproto_url', $final_output);
+    $mtproto_urls = [];
+    foreach ($final_output as $item) {
+        if (isset($item['link'])) {
+            $mtproto_urls[] = $item['link'];
+        }
+    }
+    
     $output_content = implode("\n", $mtproto_urls);
     file_put_contents("api/normal", $output_content);
 }
