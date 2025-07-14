@@ -49,25 +49,36 @@ function generateKeyboard($finalOutput)
     $keyboard = [];
     $numberMap = [];
 
-    // Sort the finalOutput array by flag
+    // Sort by flag
     usort($finalOutput, function ($a, $b) {
         return strcmp($a['flag'], $b['flag']);
     });
+
+    $count = 0; // safety limit
 
     foreach ($finalOutput as $proxyData) {
         $flag = $proxyData['flag'];
         $link = $proxyData['link'];
 
-        // Get the flag number and increment it
+        // Ignore if URL is too long
+        if (strlen($link) > 256) {
+            continue;
+        }
+
+        // Stop if we reached max buttons
+        if (++$count > 100) {
+            break;
+        }
+
         $number = isset($numberMap[$flag]) ? ++$numberMap[$flag] : ($numberMap[$flag] = 1);
 
-        // Add each button to the keyboard
         $keyboard[] = [
             'text' => "$flag $number",
             'url' => $link,
         ];
     }
 
+    // 5 buttons per row
     $inlineKeyboard = json_encode(['inline_keyboard' => array_chunk($keyboard, 5)]);
 
     return $inlineKeyboard;
