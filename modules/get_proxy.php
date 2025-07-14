@@ -116,7 +116,8 @@ function remove_duplicate($input)
 
 function proxy_array_from_file()
 {
-    $url = "https://raw.githubusercontent.com/V2RAYCONFIGSPOOL/TELEGRAM_PROXY_SUB/refs/heads/main/telegram_proxy.txt";
+    //$url = "https://raw.githubusercontent.com/V2RAYCONFIGSPOOL/TELEGRAM_PROXY_SUB/refs/heads/main/telegram_proxy.txt";
+    $url = "https://raw.githubusercontent.com/MmdBay/proxy_collector/refs/heads/main/proxy-list.txt";
     $proxies_text = file_get_contents($url);
 
     if ($proxies_text === false) {
@@ -126,11 +127,13 @@ function proxy_array_from_file()
     $lines = explode("\n", trim($proxies_text));
     $output = [];
 
-    foreach ($lines as $key => $proxy_url) {
+    foreach ($lines as $proxy_url) {
         $proxy_url = trim($proxy_url);
-        if ($proxy_url === '') continue;
 
-        // Use "external" as a generic name or anything you prefer
+        if ($proxy_url === '' || stripos($proxy_url, 'http') !== 0) {
+            continue;
+        }
+
         $data = parse_proxy($proxy_url, "external");
 
         if (!empty($data)) {
