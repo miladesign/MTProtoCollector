@@ -19,6 +19,7 @@ if (($currentHour > 0) && ($currentHour < 7)) {
 
     file_put_contents("api/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
+    $final_output = array_slice($final_output, 0, 25); 
     $keyboard = generateKeyboard($final_output);
     $message = "🔔 @ProxyCollector";
     if (($currentHour > 10) && ($currentHour < 14)) {
@@ -27,11 +28,8 @@ if (($currentHour > 0) && ($currentHour < 7)) {
         $message = getCaption();
     }
 
-    echo "MESSAGE:\n";
-    print_r($message);
-    echo "\n\nKEYBOARD:\n";
-    print_r($keyboard);
-    echo "\n\n";
+    $jsonMarkup = json_encode($keyboard);
+    echo "Keyboard JSON size: " . strlen($jsonMarkup) . " bytes\n";
     
     sendMessageToTelegram($message, $keyboard);
 
