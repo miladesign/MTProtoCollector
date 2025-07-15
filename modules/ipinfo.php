@@ -17,7 +17,6 @@ function ip_info($ip) {
         $ip = $ip_address_array[$randomKey]["ip"];
     }
 
-    // List of API endpoints
     $endpoints = [
         'https://ipapi.co/{ip}/json/',
         'https://ipwhois.app/json/{ip}',
@@ -25,45 +24,53 @@ function ip_info($ip) {
         'https://api.ipbase.com/v1/json/{ip}'
     ];
 
-    // Initialize an empty result object
     $result = (object) [
         'country' => "XX"
     ];
 
-    // Loop through each endpoint
-    foreach ($endpoints as $endpoint) {
-        // Construct the full URL
+    foreach ($endpoints as $index => $endpoint) {
         $url = str_replace('{ip}', $ip, $endpoint);
 
-        $options = array(
-            "http"=>array(
-                "header"=>"User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10\r\n" // i.e. An iPad
-            )
-        );
-        
+        $options = [
+            "http" => [
+                "header" => "User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us)
+AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.10\r\n"
+            ]
+        ];
+
         $context = stream_context_create($options);
-        $response = file_get_contents($url, false, $context);
-    
+        $response = @file_get_contents($url, false, $context);
+
         if ($response !== false) {
             $data = json_decode($response);
 
-            // Extract relevant information and update the result object
-            if ($endpoint == $endpoints[0]) {
-                // Data from ipapi.co
-                $result->country = $data->country_code ?? "XX";
-            } elseif ($endpoint == $endpoints[1]) {
-                // Data from ipwhois.app
-                $result->country = $data->country_code ?? "XX";
-            } elseif ($endpoint == $endpoints[2]) {
-                // Data from geoplugin.net
-                $result->country = $data->geoplugin_countryCode ?? "XX";
-            } elseif ($endpoint == $endpoints[3]) {
-                // Data from ipbase.com
-                $result->country = $data->country_code ?? "XX";
+            $countryCode = null;
+
+            switch ($index) {
+                case 0: // ipapi.co
+                    $countryCode = $data->country_code ?? null;
+                    break;
+                case 1: // ipwhois.app
+                    $countryCode = $data->country_code ?? null;
+                    break;
+                case 2: // geoplugin.net
+                    $countryCode = $data->geoplugin_countryCode ?? null;
+                    break;
+                case 3: // ipbase.com
+                    $countryCode = $data->country_code ?? null;
+                    break;
             }
-            // Break out of the loop since we found a successful endpoint
-            break;
+
+            if (!empty($countryCode)) {
+                $result->country = $countryCode;
+                break; // Found valid, stop here
+            }
         }
+    }
+
+    // If all endpoints failed or returned empty, result stays XX
+    if (empty($result->country)) {
+        $result->country = "XX";
     }
 
     return $result;
