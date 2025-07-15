@@ -19,7 +19,17 @@ if (($currentHour > 0) && ($currentHour < 7)) {
 
     file_put_contents("api/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
-    $final_output = array_slice($final_output, 0, 25); 
+    $maxButtons = 25;
+    $total = count($final_output);
+    
+    if ($total > $maxButtons) {
+        // Pick 25 random unique keys
+        $keys = array_rand($final_output, $maxButtons);
+        if (!is_array($keys)) {
+            $keys = [$keys];
+        }
+        $final_output = array_intersect_key($final_output, array_flip($keys));
+    }
     $keyboard = generateKeyboard($final_output);
     $message = "🔔 @ProxyCollector";
     if (($currentHour > 10) && ($currentHour < 14)) {
@@ -28,9 +38,6 @@ if (($currentHour > 0) && ($currentHour < 7)) {
         $message = getCaption();
     }
 
-    $jsonMarkup = json_encode($keyboard);
-    echo "Keyboard JSON size: " . strlen($jsonMarkup) . " bytes\n";
-    
     sendMessageToTelegram($message, $keyboard);
 
     $dir = "api";
