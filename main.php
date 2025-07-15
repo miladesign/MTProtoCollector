@@ -17,6 +17,20 @@ if (($currentHour > 0) && ($currentHour < 7)) {
     $proxy_data = proxy_array_from_file();
     $final_output = remove_duplicate($proxy_data);
 
+    $dir = "api";
+    if (!is_dir($dir)) {
+        mkdir($dir);
+    }
+    
+    $mtproto_urls = [];
+    foreach ($final_output as $item) {
+        if (isset($item['link'])) {
+            $mtproto_urls[] = $item['link'];
+        }
+    }
+    
+    $output_content = implode("\n", $mtproto_urls);
+    file_put_contents("api/normal", $output_content);
     file_put_contents("api/mtproto.json", json_encode($final_output, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
     $maxButtons = 25;
@@ -39,21 +53,6 @@ if (($currentHour > 0) && ($currentHour < 7)) {
     }
 
     sendMessageToTelegram($message, $keyboard);
-
-    $dir = "api";
-    if (!is_dir($dir)) {
-        mkdir($dir);
-    }
-    
-    $mtproto_urls = [];
-    foreach ($final_output as $item) {
-        if (isset($item['link'])) {
-            $mtproto_urls[] = $item['link'];
-        }
-    }
-    
-    $output_content = implode("\n", $mtproto_urls);
-    file_put_contents("api/normal", $output_content);
 }
 
 function generateKeyboard($finalOutput)
