@@ -13,9 +13,15 @@ function is_ip($string)
 function ip_info($ip) {
     if (is_ip($ip) === false) {
         $ip_address_array = dns_get_record($ip, DNS_A);
-        $randomKey = array_rand($ip_address_array);
-        $ip = $ip_address_array[$randomKey]["ip"];
+        if (!empty($ip_address_array)) {
+            $randomKey = array_rand($ip_address_array);
+            $ip = $ip_address_array[$randomKey]["ip"];
+        } else {
+            // Could not resolve hostname → return default
+            return (object)['country' => "XX"];
+        }
     }
+
 
     $endpoints = [
         'https://ipapi.co/{ip}/json/',
