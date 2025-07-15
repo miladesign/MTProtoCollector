@@ -26,6 +26,13 @@ if (($currentHour > 0) && ($currentHour < 7)) {
     } else {
         $message = getCaption();
     }
+
+    echo "MESSAGE:\n";
+    print_r($message);
+    echo "\n\nKEYBOARD:\n";
+    print_r($keyboard);
+    echo "\n\n";
+    
     sendMessageToTelegram($message, $keyboard);
 
     $dir = "api";
