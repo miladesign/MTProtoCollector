@@ -116,8 +116,8 @@ function remove_duplicate($input)
 
 function proxy_array_from_file()
 {
-    //$url = "https://raw.githubusercontent.com/V2RAYCONFIGSPOOL/TELEGRAM_PROXY_SUB/refs/heads/main/telegram_proxy.txt";
-    $url = "https://raw.githubusercontent.com/MmdBay/proxy_collector/refs/heads/main/proxy-list.txt";
+    $url = "https://raw.githubusercontent.com/V2RAYCONFIGSPOOL/TELEGRAM_PROXY_SUB/refs/heads/main/telegram_proxy.txt";
+    //$url = "https://raw.githubusercontent.com/MmdBay/proxy_collector/refs/heads/main/proxy-list.txt";
     $proxies_text = file_get_contents($url);
 
     if ($proxies_text === false) {
